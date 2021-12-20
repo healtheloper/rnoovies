@@ -1,34 +1,20 @@
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import { Text, View, Image } from "react-native";
-import * as Font from "expo-font";
+import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
-import { Asset } from "expo-asset";
-
-const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
-const loadAssets = (assets) => assets.map((asset) => Asset.loadAsync(asset));
-const loadImages = (images) => images.map((image) => Image.prefetch(image));
+import { Asset, useAssets } from "expo-asset";
 
 export default function App() {
-  const [ready, setReady] = useState(false);
-  const onFinish = () => setReady(true);
-  const startLoading = async () => {
-    const fonts = loadFonts([Ionicons.font]);
-    const assets = loadAssets([require("./pepe.jpeg")]);
-    const images = loadImages([
-      "https://images.chosun.com/resizer/u9nJRxs0BbtjygJ4HzKukecXnOk=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/UVBJZL3RXAB36BDSHVM3MW2WNY.jpg",
-    ]);
-    await Promise.all([...fonts, ...assets, ...images]);
-  };
+  const [assets] = useAssets([require("./pepe.jpeg")]);
+  const [loaded] = useFonts(Ionicons.font); // 여러개 사용할 경우 object
 
-  if (!ready) {
-    return (
-      <AppLoading
-        startAsync={startLoading}
-        onFinish={onFinish}
-        onError={console.log}
-      />
-    );
+  // Image.prefatch 사용 불가
+  // 로딩함수에서 무언가를 작업할 수 없음
+
+  // 오직 asset 만 불러온다면 hook 을 사용하는게 더 나을 것
+  if (!assets || !loaded) {
+    return <AppLoading />;
   }
   return (
     <View>
