@@ -4,6 +4,7 @@ import Search from "../screens/Search";
 import Tv from "../screens/Tv";
 import { useColorScheme } from "react-native";
 import { BLACK_COLOR, DARK_GREY, LIGHT_GREY, YELLOW_COLOR } from "../colors";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,9 +26,33 @@ const Tabs = () => {
         },
       }}
     >
-      <Tab.Screen name="Movies" component={Movies}></Tab.Screen>
-      <Tab.Screen name="Tv" component={Tv}></Tab.Screen>
-      <Tab.Screen name="Search" component={Search}></Tab.Screen>
+      <Tab.Screen
+        name="Movies"
+        component={Movies}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="film-outline" size={size} color={color} />
+          ),
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Tv"
+        component={Tv}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="tv-outline" size={size} color={color} />
+          ),
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Search"
+        component={Search}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="search-outline" size={size} color={color} />
+          ),
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
