@@ -4,7 +4,8 @@ import { Text, View, Image } from "react-native";
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset, useAssets } from "expo-asset";
-
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./navigation/Tabs";
 export default function App() {
   const [assets] = useAssets([require("./pepe.jpeg")]);
   const [loaded] = useFonts(Ionicons.font); // 여러개 사용할 경우 object
@@ -17,8 +18,8 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <View>
-      <Text>Hello</Text>
-    </View>
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
   );
 }
