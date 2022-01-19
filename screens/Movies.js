@@ -6,11 +6,15 @@ const Btn = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.mainBgColor};
+`;
+const Title = styled.Text`
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Movies = ({ navigation: { navigate } }) => (
   <Btn onPress={() => navigate("Stack", { screen: "Two" })}>
-    <Text>Movies</Text>
+    <Title>Movies</Title>
   </Btn>
 );
 
