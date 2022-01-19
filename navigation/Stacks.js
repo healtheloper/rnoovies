@@ -7,9 +7,9 @@ const ScreenOne = ({ navigation: { navigate } }) => (
     <Text>go to two</Text>
   </TouchableOpacity>
 );
-const ScreenTwo = ({ navigation: { goBack } }) => (
-  <TouchableOpacity onPress={() => goBack()}>
-    <Text>go back</Text>
+const ScreenTwo = ({ navigation: { navigate } }) => (
+  <TouchableOpacity onPress={() => navigate("Tabs", { screen: "Search" })}>
+    <Text>Go to Search</Text>
   </TouchableOpacity>
 );
 
