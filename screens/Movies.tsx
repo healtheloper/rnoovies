@@ -5,6 +5,8 @@ import Swiper from "react-native-swiper";
 import styled from "styled-components/native";
 import Poster from "../components/Poster";
 import Slide from "../components/Slide";
+import VMedia from "../components/VMedia";
+import HMedia from "../components/HMedia";
 
 const Container = styled.ScrollView``;
 
@@ -162,41 +164,24 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           showsHorizontalScrollIndicator={false}
         >
           {trending.map((movie) => (
-            <Movie key={movie.id}>
-              <Poster path={movie.poster_path} />
-              <Title>
-                {movie.original_title.slice(0, 13)}
-                {movie.original_title.length > 13 ? "..." : null}
-              </Title>
-              <Votes>
-                {movie.vote_average > 0
-                  ? `⭐️ ${movie.vote_average}/10`
-                  : `Coming soon`}
-              </Votes>
-            </Movie>
+            <VMedia
+              key={movie.id}
+              posterPath={movie.poster_path}
+              originalTitle={movie.original_title}
+              voteAverage={movie.vote_average}
+            />
           ))}
         </TrendingScroll>
       </ListContainer>
       <ComingSoonTitle>Coming soon</ComingSoonTitle>
       {upcoming.map((movie) => (
-        <HMovie key={movie.id}>
-          <Poster path={movie.poster_path} />
-          <HColumn>
-            <Title>{movie.original_title}</Title>
-            <Release>
-              {new Date(movie.release_date).toLocaleDateString("ko", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </Release>
-            <Overview>
-              {movie.overview !== "" && movie.overview.length > 80
-                ? `${movie.overview.slice(0, 100)}...`
-                : movie.overview}
-            </Overview>
-          </HColumn>
-        </HMovie>
+        <HMedia
+          key={movie.id}
+          posterPath={movie.poster_path}
+          originalTitle={movie.original_title}
+          overview={movie.overview}
+          releaseDate={movie.release_date}
+        />
       ))}
     </Container>
   );
